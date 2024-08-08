@@ -6,8 +6,13 @@ provider "azurerm" {
   certificate     = var.ARM_CLIENT_CERTIFICATE_BASE64
 
   client_certificate_path = "/tmp/sp-cert.pem"
+}
 
-  # Decodificar el archivo PEM desde base64 y escribirlo temporalmente
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "West Europe"
+}
+
 resource "null_resource" "force_apply" {
   triggers = {
     always_run = "${timestamp()}"
