@@ -9,10 +9,10 @@ provider "azurerm" {
   tenant_id       = var.ARM_TENANT_ID
   client_id       = var.ARM_CLIENT_ID
   client_certificate_path = "/tmp/sp-cert.pem"
-  depends_on = [module.decode_pem]  # Asegura que el proveedor espere a que el módulo termine
 }
 
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
   location = "West Europe"
+  depends_on = [module.decode_pem]  # Asegura que el proveedor espere a que el módulo termine
 }
