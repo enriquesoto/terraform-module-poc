@@ -1,15 +1,16 @@
 provider "azurerm" {
   features {}
 
-  tenant_id       = var.tenant_id
-  client_id       = var.client_id
+  tenant_id       = var.ARM_TENANT_ID
+  client_id       = var.ARM_CLIENT_ID
+  certificate     = var.ARM_CLIENT_CERTIFICATE_BASE64
 
   client_certificate_path = "/tmp/sp-cert.pem"
 
   # Decodificar el archivo PEM desde base64 y escribirlo temporalmente
   provisioner "local-exec" {
     command = <<EOT
-echo "$ARM_CLIENT_CERTIFICATE_BASE64" | base64 --decode > /tmp/sp-cert.pem
+echo "${certificate}" | base64 --decode > /tmp/sp-cert.pem
 EOT
   }
 }
