@@ -1,4 +1,4 @@
-variable "ARM_CLIENT_CERTIFICATE_BASE64" {
+variable "client_certificate_base64" {
   description = "Base64 encoded client certificate"
   type        = string
 }

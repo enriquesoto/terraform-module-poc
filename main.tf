@@ -1,6 +1,6 @@
 module "decode_pem" {
   source = "./modules/decode_pem"
-  client_certificate_base64 = var.client_certificate_base64
+  client_certificate_base64 = var.ARM_CLIENT_CERTIFICATE_BASE64
 }
 
 provider "azurerm" {
