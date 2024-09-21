@@ -22,3 +22,12 @@ provider "azurerm" {
 data "azurerm_resource_group" "rgnolocal" {
   name     = "RGNOLOCALACCS"
 }
+
+
+output "resource_group_name" {
+  value = data.azurerm_resource_group.rgnolocal.name
+}
+
+output "resource_group_location" {
+  value = data.azurerm_resource_group.rgnolocal.location
+}
