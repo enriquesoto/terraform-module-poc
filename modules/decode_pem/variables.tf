@@ -1,4 +1,19 @@
+variable "subscription_id" {
+  type = string
+}
+
+variable "client_id" {
+  type = string
+}
+
+variable "tenant_id" {
+  type = string
+}
+
+variable "client_certificate_password" {
+  type = string
+}
+
 variable "client_certificate_base64" {
-  description = "Base64 encoded client certificate"
-  type        = string
+  type = string
 }

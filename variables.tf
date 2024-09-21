@@ -1,14 +1,19 @@
-variable "ARM_CLIENT_ID" {
-  description = "Client ID of the Azure Service Principal"
-  type        = string
+variable "subscription_id" {
+  type = string
 }
 
-variable "ARM_TENANT_ID" {
-  description = "Tenant ID of the Azure Service Principal"
-  type        = string
+variable "client_id" {
+  type = string
 }
 
-variable "ARM_CLIENT_CERTIFICATE_BASE64" {
-  description = "Base64 encoded client certificate"
-  type        = string
+variable "tenant_id" {
+  type = string
+}
+
+variable "client_certificate_password" {
+  type = string
+}
+
+variable "client_certificate_base64" {
+  type = string
 }
