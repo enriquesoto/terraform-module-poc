@@ -10,10 +10,10 @@ variable "tenant_id" {
   type = string
 }
 
-variable "client_certificate_password" {
+variable "certificate_pfx_base64" {
   type = string
 }
 
-variable "client_certificate_base64" {
+variable "password_pfx" {
   type = string
 }
