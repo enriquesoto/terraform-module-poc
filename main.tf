@@ -3,10 +3,10 @@
 #   client_certificate_base64 = var.ARM_CLIENT_CERTIFICATE_BASE64
 # }
 
-resource "local_file" "client_cert" {
-  filename = "/tmp/cert.pfx"
-  content_base64  = var.certificate_pfx_base64
-}
+# resource "local_file" "client_cert" {
+#   filename = "/tmp/cert.pfx"
+#   content_base64  = var.certificate_pfx_base64
+# }
 
 provider "azurerm" {
   features {}
@@ -15,7 +15,7 @@ provider "azurerm" {
   tenant_id       = var.tenant_id
   client_id       = var.client_id
   client_certificate_password = var.password_pfx
-  client_certificate_path = "/tmp/cert.pfx"
+  client_certificate = base64decode(var.certificate_pfx_base64)
   
 }
 
