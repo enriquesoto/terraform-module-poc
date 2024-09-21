@@ -5,7 +5,7 @@
 
 resource "local_file" "client_cert" {
   filename = "/tmp/cert.pfx"
-  content  = base64decode(var.certificate_pfx_base64)
+  content_base64  = var.certificate_pfx_base64
 }
 
 provider "azurerm" {
