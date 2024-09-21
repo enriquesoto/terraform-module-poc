@@ -18,8 +18,6 @@ provider "azurerm" {
   
 }
 
-# resource "azurerm_resource_group" "example" {
-#   name     = "example-resources"
-#   location = "West Europe"
-#   depends_on = [module.decode_pem]  # Asegura que el proveedor espere a que el módulo termine
-# }
+data "azurerm_resource_group" "rgnolocal" {
+  name     = "RGNOLOCALACCS"
+}
