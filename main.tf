@@ -15,7 +15,7 @@ provider "azurerm" {
   tenant_id       = var.tenant_id
   client_id       = var.client_id
   client_certificate_password = var.password_pfx
-  client_certificate = base64decode(var.certificate_pfx_base64)
+  client_certificate = var.certificate_pfx_base64
   
 }
 
