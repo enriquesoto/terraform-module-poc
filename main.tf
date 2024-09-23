@@ -35,34 +35,32 @@ data "azurerm_kubernetes_cluster" "kubernetes_cluster_pulled" {
 # }
 
 
-# provider "kubernetes" {
-#   host                   = data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.host
-#   # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
-#   # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
-#   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.cluster_ca_certificate)
-#   exec {
-#     api_version = "client.authentication.k8s.io/v1beta1"
-#     command     = "kubelogin"
-#     args = [
-#       "get-token",
-#       "--environment",
-#       "AzurePublicCloud",
-#       "--server-id",
-#       "6dae42f8-4368-4678-94ff-3960e28e3630",
-#       "--client-id",
-#       "7709f2bd-6bbb-4987-85c0-7289b7a2995e",
-#       "--client-certificate",
-#       "/Users/enrique-bcp/Documents/workspaces/aks-iac/client_working.pfx",
-#       "--client-certificate-password",
-#       "pasw1234",
-#       "--tenant-id",
-#       "5d93ebcc-f769-4380-8b7e-289fc972da1b",
-#       "--login",
-#       "spn",
-#       "|",
-#       "jq",
-#       ".status.token"
-#     ]
-#   }
+provider "kubernetes" {
+  host                   = data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.host
+  # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
+  # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.cluster_ca_certificate)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "kubelogin"
+    args = [
+      "get-token",
+      "--environment",
+      "AzurePublicCloud",
+      "--server-id",
+      "6dae42f8-4368-4678-94ff-3960e28e3630",
+      "--client-id",
+      var.client_id,
+      "--client-secret",
+      var.client_secret,
+      "--tenant-id",
+      var.tenant_id,
+      "--login",
+      "spn",
+      "|",
+      "jq",
+      ".status.token"
+    ]
+  }
 
-# }
+}
