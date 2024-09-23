@@ -42,7 +42,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.cluster_ca_certificate)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "kubelogin"
+    command     = "./kubelogin"
     args = [
       "get-token",
       "--environment",
