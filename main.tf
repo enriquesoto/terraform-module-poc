@@ -64,3 +64,38 @@ provider "kubernetes" {
   }
 
 }
+
+resource "kubernetes_cluster_role" "developer_env_desa_aks" {
+  metadata {
+    name = "Developer_Env_Desa_Aks_15"
+  }
+
+  rule {
+    api_groups = [""]
+    resources  = ["deployments", "pods", "pods/exec", "pods/log", "services"]
+    verbs      = ["*"]
+  }
+
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments", "hpa", "replicasets"]
+    verbs      = ["*"]
+  }
+
+  rule {
+    api_groups = [
+      "source.toolkit.fluxcd.io", 
+      "kustomize.toolkit.fluxcd.io", 
+      "helm.toolkit.fluxcd.io", 
+      "notification.toolkit.fluxcd.io", 
+      "image.toolkit.fluxcd.io"
+    ]
+    resources  = [
+      "buckets", "gitrepositories", "helmcharts", "helmrepositories", "ocirepositories", 
+      "kustomizations", "clusterconfig.azure.com", "helmreleases", "alerts", 
+      "providers", "receivers", "imagepolicies", "imagerepositories", 
+      "imageupdateautomations", "extensionconfigs", "fluxconfigs"
+    ]
+    verbs      = ["*"]
+  }
+}
