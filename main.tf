@@ -67,7 +67,7 @@ provider "kubernetes" {
 
 resource "kubernetes_cluster_role" "developer_env_desa_aks" {
   metadata {
-    name = "Developer_Env_Desa_Aks_15"
+    name = "Developer_Env_Desa_Aks_16"
   }
 
   rule {
