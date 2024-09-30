@@ -32,28 +32,28 @@ resource "azurerm_resource_group" "rgnolocal_update" {
 }
 
 
-resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  name                = "aksveu2ctpld99"
-  location            = azurerm_resource_group.rgnolocal_update.location
-  resource_group_name = azurerm_resource_group.rgnolocal_update.name
-  dns_prefix          = "aksveu2ctpld99"
+# resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+#   name                = "aksveu2ctpld99"
+#   location            = azurerm_resource_group.rgnolocal_update.location
+#   resource_group_name = azurerm_resource_group.rgnolocal_update.name
+#   dns_prefix          = "aksveu2ctpld99"
 
-  default_node_pool {
-    name       = "default"
-    node_count = 1
-    #   vm_size    = "Standard_D2_v2"
-    vm_size = "Standard_A2_v2"
-  }
+#   default_node_pool {
+#     name       = "default"
+#     node_count = 1
+#     #   vm_size    = "Standard_D2_v2"
+#     vm_size = "Standard_A2_v2"
+#   }
 
-  identity {
-    type = "SystemAssigned"
-  }
-  tags = {
-    Environment = "Dev"
-    Department  = "Banca"
-    Owner       = "Enriqueto"
-  }
-}
+#   identity {
+#     type = "SystemAssigned"
+#   }
+#   tags = {
+#     Environment = "Dev"
+#     Department  = "Banca"
+#     Owner       = "Enriqueto"
+#   }
+# }
 
 
 # output "resource_group_name" {
