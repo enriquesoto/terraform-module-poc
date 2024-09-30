@@ -38,7 +38,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   resource_group_name = azurerm_resource_group.rgnolocal.name
   dns_prefix          = "aksveu2ctpld999"
   azure_active_directory_role_based_access_control {
-    azure_rbac_enabled = false
+    tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
   }
 
   default_node_pool {
