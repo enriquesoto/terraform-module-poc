@@ -68,6 +68,8 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 # }
 
 
+
+
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.host
   # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
