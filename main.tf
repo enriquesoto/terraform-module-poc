@@ -20,16 +20,16 @@ provider "azurerm" {
   
 }
 
+# resource "azurerm_role_assignment" "example" {
+#   name               = "00000000-0000-0000-0000-000000000000"
+#   scope              = "/subscriptions/2fe6b8f7-d4ff-4119-b78c-f9e27f278f77/resourceGroups/RGNOLOCALACCS"
+#   role_definition_id = "Environment Automation II"
+#   principal_id       = "2fe6b8f7-d4ff-4119-b78c-f9e27f278f77"
+# }
+
 resource "azurerm_resource_group" "rgnolocal" {
   name     = "RGNOLOCALACCS"
   location = "eastus2"
-}
-
-resource "azurerm_role_assignment" "example" {
-  name               = "00000000-0000-0000-0000-000000000000"
-  scope              = "/subscriptions/2fe6b8f7-d4ff-4119-b78c-f9e27f278f77/resourceGroups/RGNOLOCALACCS"
-  role_definition_id = "Environment Automation II"
-  principal_id       = "2fe6b8f7-d4ff-4119-b78c-f9e27f278f77"
 }
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
