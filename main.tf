@@ -21,8 +21,8 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rgnolocal_update" {
-  name     = data.azurerm_resource_group.rgnolocal.name
-  location = data.azurerm_resource_group.rgnolocal.location
+  name     = "RGNNOLOCALACCOUNTS"
+  location = "eastus2"
 
   tags = {
     Environment = "Dev"
@@ -66,10 +66,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
 
 provider "kubernetes" {
-  host                   = data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.host
+  host                   = azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kubernetes_cluster.0.host
   # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
   # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
-  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.cluster_ca_certificate)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kubernetes_cluster.0.cluster_ca_certificate)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "./kubelogin"
