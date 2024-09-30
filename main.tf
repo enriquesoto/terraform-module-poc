@@ -27,8 +27,8 @@ resource "azurerm_resource_group" "rgnolocal" {
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "aksveu2ctpld999"
-  location            = data.azurerm_resource_group.rgnolocal.location
-  resource_group_name = data.azurerm_resource_group.rgnolocal.name
+  location            = azurerm_resource_group.rgnolocal.location
+  resource_group_name = azurerm_resource_group.rgnolocal.name
   dns_prefix          = "aksveu2ctpld999"
 
   default_node_pool {
