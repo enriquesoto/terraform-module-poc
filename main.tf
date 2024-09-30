@@ -20,9 +20,32 @@ provider "azurerm" {
   
 }
 
-data "azurerm_kubernetes_cluster" "kubernetes_cluster_pulled" {
-  name                = "aksveu2polyd01"
-  resource_group_name = "RSGREU2POLYD01"
+resource "azurerm_resource_group" "rgnolocal" {
+  name     = "RGNOLOCALACCS"
+  location = "eastus2"
+}
+
+resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+  name                = "aksveu2ctpld999"
+  location            = data.azurerm_resource_group.rgnolocal.location
+  resource_group_name = data.azurerm_resource_group.rgnolocal.name
+  dns_prefix          = "aksveu2ctpld999"
+
+  default_node_pool {
+    name       = "default"
+    node_count = 1
+    #   vm_size    = "Standard_D2_v2"
+    vm_size = "Standard_A2_v2"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+  tags = {
+    Environment = "Dev"
+    Department  = "Banca"
+    Owner       = "Enriqueto"
+  }
 }
 
 
@@ -36,10 +59,10 @@ data "azurerm_kubernetes_cluster" "kubernetes_cluster_pulled" {
 
 
 provider "kubernetes" {
-  host                   = data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.host
+  host                   = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.host
   # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
   # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
-  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.cluster_ca_certificate)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.cluster_ca_certificate)
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
     command     = "./kubelogin"
