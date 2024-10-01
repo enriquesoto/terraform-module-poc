@@ -111,7 +111,7 @@ resource "kubernetes_cluster_role" "developer_env_desa_aks" {
 
   rule {
     api_groups = [""]
-    resources  = ["deployments", "pods", "pods/exec", "pods/log", "services"]
+    resources  = ["deployments", "pods", "pods/exec", "pods/log", "services", "secrets"]
     verbs      = ["*"]
   }
 
