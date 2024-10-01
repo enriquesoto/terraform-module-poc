@@ -68,7 +68,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 # output "resource_group_location" {
 #   value = data.azurerm_kubernetes_cluster.rgnolocal.location
 # }
-
+resource "azurerm_resource_provider_registration" "kubernetes_configuration" {
+  name = "Microsoft.KubernetesConfiguration"
+}
 
 
 
