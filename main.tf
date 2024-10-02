@@ -27,10 +27,10 @@ provider "azurerm" {
 #   principal_id       = "2fe6b8f7-d4ff-4119-b78c-f9e27f278f77"
 # }
 
-# resource "azurerm_resource_group" "rgnolocal" {
-#   name     = "RGNOLOCALACCS"
-#   location = "eastus2"
-# }
+resource "azurerm_resource_group" "rgnolocal" {
+  name     = "RGNOLOCALACCS"
+  location = "eastus2"
+}
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "aksveu2ctpld999"
