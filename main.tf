@@ -27,38 +27,38 @@ provider "azurerm" {
 #   principal_id       = "2fe6b8f7-d4ff-4119-b78c-f9e27f278f77"
 # }
 
-resource "azurerm_resource_group" "rgnolocal" {
-  name     = "RGNOLOCALACCS"
-  location = "eastus2"
-}
+# resource "azurerm_resource_group" "rgnolocal" {
+#   name     = "RGNOLOCALACCS"
+#   location = "eastus2"
+# }
 
-resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-  name                = "aksveu2ctpld999"
-  location            = azurerm_resource_group.rgnolocal.location
-  resource_group_name = azurerm_resource_group.rgnolocal.name
-  dns_prefix          = "aksveu2ctpld999"
-  azure_active_directory_role_based_access_control {
-    tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
-    # azure_rbac_enabled = true
-  }
-  # local_account_disabled = true
+# resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+#   name                = "aksveu2ctpld999"
+#   location            = azurerm_resource_group.rgnolocal.location
+#   resource_group_name = azurerm_resource_group.rgnolocal.name
+#   dns_prefix          = "aksveu2ctpld999"
+#   azure_active_directory_role_based_access_control {
+#     tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
+#     # azure_rbac_enabled = true
+#   }
+#   # local_account_disabled = true
 
-  default_node_pool {
-    name       = "default"
-    node_count = 1
-    #   vm_size    = "Standard_D2_v2"
-    vm_size = "Standard_A2_v2"
-  }
+#   default_node_pool {
+#     name       = "default"
+#     node_count = 1
+#     #   vm_size    = "Standard_D2_v2"
+#     vm_size = "Standard_A2_v2"
+#   }
 
-  identity {
-    type = "SystemAssigned"
-  }
-  tags = {
-    Environment = "Dev"
-    Department  = "Banca"
-    Owner       = "Enriqueto"
-  }
-}
+#   identity {
+#     type = "SystemAssigned"
+#   }
+#   tags = {
+#     Environment = "Dev"
+#     Department  = "Banca"
+#     Owner       = "Enriqueto"
+#   }
+# }
 
 
 # output "resource_group_name" {
@@ -68,9 +68,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 # output "resource_group_location" {
 #   value = data.azurerm_kubernetes_cluster.rgnolocal.location
 # }
-resource "azurerm_resource_provider_registration" "kubernetes_configuration" {
-  name = "Microsoft.KubernetesConfiguration"
-}
+# resource "azurerm_resource_provider_registration" "kubernetes_configuration" {
+#   name = "Microsoft.KubernetesConfiguration"
+# }
 
 
 
