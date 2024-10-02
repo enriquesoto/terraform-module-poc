@@ -65,13 +65,13 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 }
 
 
-output "resource_group_name" {
-  value = data.azurerm_kubernetes_cluster.rgnolocal.name
-}
+# output "resource_group_name" {
+#   value = data.azurerm_kubernetes_cluster.rgnolocal.name
+# }
 
-output "resource_group_location" {
-  value = data.azurerm_kubernetes_cluster.rgnolocal.location
-}
+# output "resource_group_location" {
+#   value = data.azurerm_kubernetes_cluster.rgnolocal.location
+# }
 
 
 provider "kubernetes" {
