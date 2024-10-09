@@ -33,105 +33,105 @@ resource "azurerm_resource_provider_registration" "kubernetes_configuration" {
 }
 
 
-# resource "azurerm_resource_group" "rgnolocal" {
-#   name     = "RGNOLOCALACCS"
-#   location = "eastus2"
-# }
+resource "azurerm_resource_group" "rgnolocal" {
+  name     = "RGNOLOCALACCS"
+  location = "eastus2"
+}
 
-# resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
-#   name                = "aksveu2ctpld999"
-#   location            = azurerm_resource_group.rgnolocal.location
-#   resource_group_name = azurerm_resource_group.rgnolocal.name
-#   dns_prefix          = "aksveu2ctpld999"
-#   azure_active_directory_role_based_access_control {
-#     tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
-#     azure_rbac_enabled = true
-#   }
-#   local_account_disabled = true
+resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
+  name                = "aksveu2ctpld999"
+  location            = azurerm_resource_group.rgnolocal.location
+  resource_group_name = azurerm_resource_group.rgnolocal.name
+  dns_prefix          = "aksveu2ctpld999"
+  azure_active_directory_role_based_access_control {
+    tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
+    azure_rbac_enabled = true
+  }
+  local_account_disabled = true
 
-#   default_node_pool {
-#     name       = "default"
-#     node_count = 1
-#     #   vm_size    = "Standard_D2_v2"
-#     vm_size = "Standard_A2_v2"
-#   }
+  default_node_pool {
+    name       = "default"
+    node_count = 1
+    #   vm_size    = "Standard_D2_v2"
+    vm_size = "Standard_A2_v2"
+  }
 
-#   identity {
-#     type = "SystemAssigned"
-#   }
-#   tags = {
-#     Environment = "Dev"
-#     Department  = "Banca"
-#     Owner       = "Enriqueto"
-#   }
-# }
+  identity {
+    type = "SystemAssigned"
+  }
+  tags = {
+    Environment = "Dev"
+    Department  = "Banca"
+    Owner       = "Enriqueto"
+  }
+}
 
 
 
-# provider "kubernetes" {
-#   # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
-#   host                   = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.host
-#   # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
-#   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.cluster_ca_certificate)
-#   exec {
-#     api_version = "client.authentication.k8s.io/v1beta1"
-#     command     = "./kubelogin"
-#     args = [
-#       "get-token",
-#       "--environment",
-#       "AzurePublicCloud",
-#       "--server-id",
-#       "6dae42f8-4368-4678-94ff-3960e28e3630",
-#       "--client-id",
-#       var.client_id,
-#       "--client-secret",
-#       var.client_secret,
-#       "--tenant-id",
-#       var.tenant_id,
-#       "--login",
-#       "spn",
-#       "|",
-#       "jq",
-#       ".status.token"
-#     ]
-#   }
+provider "kubernetes" {
+  # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
+  host                   = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.host
+  # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.cluster_ca_certificate)
+  exec {
+    api_version = "client.authentication.k8s.io/v1beta1"
+    command     = "./kubelogin"
+    args = [
+      "get-token",
+      "--environment",
+      "AzurePublicCloud",
+      "--server-id",
+      "6dae42f8-4368-4678-94ff-3960e28e3630",
+      "--client-id",
+      var.client_id,
+      "--client-secret",
+      var.client_secret,
+      "--tenant-id",
+      var.tenant_id,
+      "--login",
+      "spn",
+      "|",
+      "jq",
+      ".status.token"
+    ]
+  }
 
-# }
+}
 
-# resource "kubernetes_cluster_role" "developer_env_desa_aks" {
-#   metadata {
-#     name = "Developer_Env_Desa_Aks_16"
-#   }
+resource "kubernetes_cluster_role" "developer_env_desa_aks" {
+  metadata {
+    name = "Developer_Env_Desa_Aks_16"
+  }
 
-#   rule {
-#     api_groups = [""]
-#     resources  = ["deployments", "pods", "pods/exec", "pods/log", "services", "secrets"]
-#     verbs      = ["*"]
-#   }
+  rule {
+    api_groups = [""]
+    resources  = ["deployments", "pods", "pods/exec", "pods/log", "services", "secrets"]
+    verbs      = ["*"]
+  }
 
-#   rule {
-#     api_groups = ["extensions", "apps"]
-#     resources  = ["deployments", "hpa", "replicasets"]
-#     verbs      = ["*"]
-#   }
+  rule {
+    api_groups = ["extensions", "apps"]
+    resources  = ["deployments", "hpa", "replicasets"]
+    verbs      = ["*"]
+  }
 
-#   rule {
-#     api_groups = [
-#       "source.toolkit.fluxcd.io", 
-#       "kustomize.toolkit.fluxcd.io", 
-#       "helm.toolkit.fluxcd.io", 
-#       "notification.toolkit.fluxcd.io", 
-#       "image.toolkit.fluxcd.io"
-#     ]
-#     resources  = [
-#       "buckets", "gitrepositories", "helmcharts", "helmrepositories", "ocirepositories", 
-#       "kustomizations", "clusterconfig.azure.com", "helmreleases", "alerts", 
-#       "providers", "receivers", "imagepolicies", "imagerepositories", 
-#       "imageupdateautomations", "extensionconfigs", "fluxconfigs"
-#     ]
-#     verbs      = ["*"]
-#   }
-# }
+  rule {
+    api_groups = [
+      "source.toolkit.fluxcd.io", 
+      "kustomize.toolkit.fluxcd.io", 
+      "helm.toolkit.fluxcd.io", 
+      "notification.toolkit.fluxcd.io", 
+      "image.toolkit.fluxcd.io"
+    ]
+    resources  = [
+      "buckets", "gitrepositories", "helmcharts", "helmrepositories", "ocirepositories", 
+      "kustomizations", "clusterconfig.azure.com", "helmreleases", "alerts", 
+      "providers", "receivers", "imagepolicies", "imagerepositories", 
+      "imageupdateautomations", "extensionconfigs", "fluxconfigs"
+    ]
+    verbs      = ["*"]
+  }
+}
 
 
 
