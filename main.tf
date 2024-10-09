@@ -28,9 +28,9 @@ provider "azurerm" {
 # }
 
 
-resource "azurerm_resource_provider_registration" "kubernetes_configuration" {
-  name = "Microsoft.KubernetesConfiguration"
-}
+# resource "azurerm_resource_provider_registration" "kubernetes_configuration" {
+#   name = "Microsoft.KubernetesConfiguration"
+# }
 
 
 resource "azurerm_resource_group" "rgnolocal" {
@@ -69,32 +69,32 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
 
 provider "kubernetes" {
-  # client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
+  client_certificate     = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
   host                   = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.host
-  # client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
+  client_key             = base64decode(data.azurerm_kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.cluster_ca_certificate)
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "./kubelogin"
-    args = [
-      "get-token",
-      "--environment",
-      "AzurePublicCloud",
-      "--server-id",
-      "6dae42f8-4368-4678-94ff-3960e28e3630",
-      "--client-id",
-      var.client_id,
-      "--client-secret",
-      var.client_secret,
-      "--tenant-id",
-      var.tenant_id,
-      "--login",
-      "spn",
-      "|",
-      "jq",
-      ".status.token"
-    ]
-  }
+  # exec {
+  #   api_version = "client.authentication.k8s.io/v1beta1"
+  #   command     = "./kubelogin"
+  #   args = [
+  #     "get-token",
+  #     "--environment",
+  #     "AzurePublicCloud",
+  #     "--server-id",
+  #     "6dae42f8-4368-4678-94ff-3960e28e3630",
+  #     "--client-id",
+  #     var.client_id,
+  #     "--client-secret",
+  #     var.client_secret,
+  #     "--tenant-id",
+  #     var.tenant_id,
+  #     "--login",
+  #     "spn",
+  #     "|",
+  #     "jq",
+  #     ".status.token"
+  #   ]
+  # }
 
 }
 
