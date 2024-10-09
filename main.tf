@@ -69,9 +69,9 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 
 
 provider "kubernetes" {
-  client_certificate     = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_certificate)
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.client_certificate)
   host                   = azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.host
-  client_key             = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kubernetes_cluster_pulled.kube_config.0.client_key)
+  client_key             = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.client_key)
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.kubernetes_cluster.kube_config.0.cluster_ca_certificate)
   # exec {
   #   api_version = "client.authentication.k8s.io/v1beta1"
