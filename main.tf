@@ -43,10 +43,10 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   location            = azurerm_resource_group.rgnolocal.location
   resource_group_name = azurerm_resource_group.rgnolocal.name
   dns_prefix          = "aksveu2ctpld999"
-  # azure_active_directory_role_based_access_control {
-  #   tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
-  #   azure_rbac_enabled = true
-  # }
+  azure_active_directory_role_based_access_control {
+    tenant_id = "6b828656-d429-49a5-b3c7-6e74a6c57971"
+    azure_rbac_enabled = true
+  }
   # local_account_disabled = true
 
   default_node_pool {
